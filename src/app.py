@@ -28,20 +28,14 @@ def sitemap():
 @app.route('/members', methods=['GET'])
 def get_all_members():
     try:
-   
-        member = jackson_family.get_all_members()
-
-      
-        if not isinstance(member, list):
+        members = jackson_family.get_all_members()
+        
+        if not isinstance(members, list):
             raise APIException('Internal server error', status_code=500)
 
-        response_body = {
-            "family": member
-        }
-
-        return jsonify(response_body), 200
+        # Return the list of members directly without the "family" key
+        return jsonify(members), 200
     except Exception as e:
-     
         return jsonify({'error': str(e)}), 500
 
 
